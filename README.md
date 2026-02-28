@@ -1,188 +1,120 @@
-# MathMate
+# 🧮 MathMate
 
-### Interactive Mathematics Learning Platform
+> **An interactive desktop mathematics learning platform built with Python and Tkinter.**
 
-**Python • Tkinter • SQLite • SymPy • Matplotlib • NumPy**
-
----
-
-## 📌 Overview
-
-**MathMate** is a desktop-based interactive mathematics learning application built using Python and Tkinter. It provides a structured, self-contained environment for exploring **Geometry, Algebra, and Trigonometry**, supported by a dynamic quiz engine, leaderboard system, and an embedded mathematical graph plotter.
-
-The application uses a local SQLite database (`mathmate.db`) to persist user profiles, quiz results, and reference data. It operates entirely offline with no external API dependencies.
+MathMate helps students explore Shapes, Algebra and Trigonometry through an intuitive topic browser, live calculators, a randomised quiz engine, a score leaderboard and an embedded function graph plotter — all running locally with no internet required.
 
 ---
 
-## ✨ Core Features
+## 📸 Features at a Glance
 
-### 🔷 Geometry Module
-
-* 15 shapes (2D & 3D)
-* Area, perimeter, and volume calculators
-* Dynamic input field rendering
-* Context-aware formula explanations
-
-### 📐 Algebra Module
-
-* 10 structured concepts including:
-
-  * Linear & Quadratic Equations
-  * Arithmetic & Geometric Progressions
-  * Logarithms
-  * Binomial Theorem
-  * Systems of Equations
-* Powered by **SymPy** for symbolic solving
-
-### 📏 Trigonometry Module
-
-* 6 primary trig ratios
-* Pythagorean Theorem
-* Law of Sines & Law of Cosines
-* Inverse trigonometric functions
-* Defensive checks for undefined values
-
-### 🎯 Quiz Engine
-
-* 30 seeded MCQs
-* Randomized per session (`ORDER BY RANDOM()` in SQL)
-* Instant feedback + detailed explanations
-* Scoring + persistent attempt tracking
-
-### 🏆 Leaderboard System
-
-* Top-10 ranking table
-* Click-to-sort functionality
-* Dynamic bar chart visualization
-* Per-user performance tracking
-
-### 📈 Graph Plotter
-
-* Embedded Matplotlib canvas
-* Plot any NumPy-compatible expression
-* Customizable X-range
-* Built-in expression presets
-* Safe evaluation namespace
-
-### 👤 Multi-User Support
-
-* User registration system
-* Points & level tracking
-* Quiz completion history
-* Persistent progress storage
+| Tab | Description |
+|-----|-------------|
+| 🔷 **Shapes** | 15 shapes — area, perimeter and volume calculators with extra formula notes |
+| 📐 **Algebra** | 10 concepts — linear/quadratic equations, AP/GP, logarithms, binomial theorem and more |
+| 📏 **Trigonometry** | 10 functions — all 6 ratios, Pythagorean theorem, Law of Sines & Cosines, inverse trig |
+| 🎯 **Quiz Mode** | 30 seeded MCQs, randomised per session, with instant feedback and explanations |
+| 🏆 **Leaderboard** | Sortable top-10 table + live bar chart comparing all registered users |
+| 📈 **Graph Plotter** | Plot any numpy-compatible expression over a custom x-range with 12 quick presets |
+| 👤 **User Profiles** | Multi-user support — points, level and quiz history tracked per user in SQLite |
 
 ---
 
-## 🗂 Project Structure
+## 🗂️ Project Structure
 
 ```
-MathMate/
-│
-├── main.py
-├── db_init.py
-├── models.py
-├── shapes_module.py
-├── algebra_module.py
-├── trig_module.py
-├── quiz_module.py
-├── leaderboard_module.py
-├── graph_module.py
-└── mathmate.db (auto-generated)
+Mathmate/
+├── main.py                 # Entry point — root window, toolbar, 6-tab notebook
+├── db_init.py              # Schema creation and data seeding (idempotent)
+├── models.py               # Data access layer — all SQL lives here
+├── shapes_module.py        # ShapesFrame — 15 shapes with dynamic input fields
+├── algebra_module.py       # AlgebraFrame — 10 algebra concepts + calculators
+├── trig_module.py          # TrigFrame — 10 trig functions + calculators
+├── quiz_module.py          # QuizFrame — MCQ engine, scoring, history panel
+├── leaderboard_module.py   # LeaderboardFrame — Treeview table + Canvas bar chart
+├── graph_module.py         # GraphFrame — matplotlib plotter embedded in Tkinter
+└── mathmate.db             # Auto-generated SQLite database (created on first run)
 ```
 
-### Module Responsibilities
+---
 
-| File          | Responsibility                            |
-| ------------- | ----------------------------------------- |
-| `main.py`     | Application entry point, UI orchestration |
-| `db_init.py`  | Database creation and seeding             |
-| `models.py`   | Centralized data access layer             |
-| `*_module.py` | Feature-specific UI + logic               |
-| `mathmate.db` | SQLite database (auto-created)            |
+## ⚙️ Requirements
+
+| Dependency | Purpose | Required? |
+|------------|---------|-----------|
+| Python 3.10+ | Runtime | ✅ Yes |
+| tkinter | GUI framework (bundled with Python) | ✅ Yes |
+| sympy | Symbolic maths (algebra solver) | ✅ Yes |
+| matplotlib | Graph plotter tab | ⚠️ Optional* |
+| numpy | Expression evaluation in plotter | ⚠️ Optional* |
+
+> *If `matplotlib` is not installed, the Graph Plotter tab shows a friendly install prompt instead of crashing the app.
 
 ---
 
-## 🏗 Architecture
+## 🚀 Installation
 
-MathMate follows a clean **three-layer architecture**:
-
-1. **Presentation Layer** – Tkinter UI modules
-2. **Data Access Layer** – Centralized SQL logic in `models.py`
-3. **Database Layer** – SQLite backend
-
-### Database Schema
-
-* `users`
-* `shapes`
-* `algebra_concepts`
-* `trig_functions`
-* `quiz_questions`
-* `quiz_attempts`
-
-All reference data is seeded safely using `INSERT OR IGNORE`.
-
----
-
-## 🎮 Gamification System
-
-| Action              | Points |
-| ------------------- | ------ |
-| Shape Calculation   | +1     |
-| Algebra Calculation | +2     |
-| Trig Calculation    | +2     |
-| Correct Quiz Answer | +5     |
-| Perfect Quiz Bonus  | +20    |
-
-**Level System:**
-Every 50 points = +1 Level (minimum Level 1)
-
----
-
-## 🚀 Installation & Setup
-
-### Requirements
-
-* Python 3.10+
-* tkinter
-* sympy
-* matplotlib
-* numpy
-
----
-
-### Option 1 — Virtual Environment (Recommended)
+### Option A — Virtual Environment *(Recommended)*
 
 ```bash
+git clone https://github.com/yourname/mathmate.git
+cd mathmate
+
 python3 -m venv venv
-source venv/bin/activate   # Windows: venv\Scripts\activate
-pip install sympy matplotlib numpy
+source venv/bin/activate        # Windows: venv\Scripts\activate
+
+pip install sympy matplotlib
 python3 main.py
 ```
 
----
-
-### Option 2 — Debian / Kali Linux
+Next time, just activate and run:
 
 ```bash
-pip install sympy matplotlib numpy --break-system-packages
+source venv/bin/activate
 python3 main.py
 ```
 
 ---
 
-### Option 3 — Using APT
+### Option B — System-wide *(Kali / Debian / Ubuntu)*
 
 ```bash
-sudo apt install python3-sympy python3-matplotlib python3-numpy
+pip install sympy matplotlib --break-system-packages
 python3 main.py
 ```
 
 ---
 
-### Running on WSL
+### Option C — APT packages
 
-* Windows 11 (WSLg): Works out of the box
-* Windows 10: Install VcXsrv or Xming
+```bash
+sudo apt install python3-sympy python3-matplotlib
+python3 main.py
+```
+
+---
+
+### Option D — Windows (Native Python)
+
+```cmd
+cd C:\path\to\Mathmate
+pip install sympy matplotlib
+python main.py
+```
+
+---
+
+## 🖥️ Running on WSL / Kali Linux
+
+MathMate uses Tkinter which requires a graphical display.
+
+**WSL2 + Windows 11** — WSLg is built-in, no extra steps needed:
+
+```bash
+python3 main.py
+```
+
+**WSL2 + Windows 10** — Install [VcXsrv](https://sourceforge.net/projects/vcxsrv/) or [Xming](https://sourceforge.net/projects/xming/), launch it, then:
 
 ```bash
 export DISPLAY=:0
@@ -191,73 +123,112 @@ python3 main.py
 
 ---
 
-## 📊 Design Decisions
+## 🏗️ Architecture
 
-* All SQL isolated in `models.py`
-* UI modules do not directly access the database
-* Defensive imports for optional dependencies
-* Context-managed database connections
-* Restricted namespace for safe `eval()` usage
-* Dynamic input rendering via mapping dictionaries
+MathMate follows a clean three-layer design:
 
----
+```
+┌─────────────────────────────────────────────────────┐
+│              Presentation Layer                      │
+│  main.py  →  *_module.py  (one Frame per tab)       │
+├─────────────────────────────────────────────────────┤
+│              Data Access Layer                       │
+│  models.py  (all SQL queries centralised here)      │
+├─────────────────────────────────────────────────────┤
+│              Database Layer                          │
+│  db_init.py  →  mathmate.db  (SQLite)               │
+└─────────────────────────────────────────────────────┘
+```
 
-## ⚠ Known Limitations
-
-* Graph module requires matplotlib & numpy
-* Quiz questions are seeded at DB creation
-* No dark mode
-* Triangle perimeter requires three side lengths
-
----
-
-## 🔮 Future Enhancements
-
-* Timed quiz mode
-* Admin question management panel
-* Export results to CSV/PDF
-* Topic-wise performance analytics
-* 3D shape visualization
-* Theme toggle (Dark Mode)
+**UI modules never touch the database directly** — they only call functions in `models.py`. This keeps each module short, focused and independently testable.
 
 ---
 
-## 🐛 Major Fixes (v1 → v2)
+## 🗃️ Database Schema
 
-* Fixed level recalculation logic
-* Enforced DB connection cleanup
-* Added scrolling to long lists
-* Guarded against null-user crashes
-* Prevented trig division-by-zero errors
-* Improved triangle perimeter validation
+Six tables are managed by `db_init.py`:
 
----
+| Table | Rows Seeded | Description |
+|-------|------------|-------------|
+| `users` | 0 (user-created) | username, points, level, completed_quizzes |
+| `shapes` | 15 | name, description, area formula, perimeter formula, extra notes |
+| `algebra_concepts` | 10 | name, description, formula, worked example, notes |
+| `trig_functions` | 10 | name, description, formula, notes |
+| `quiz_questions` | 30 | topic, question, 4 options, correct answer, difficulty (1–3), explanation |
+| `quiz_attempts` | grows | username, topic, score, total, timestamp |
 
-## 🧠 Technical Highlights
-
-* Object-oriented modular design
-* SQLite relational schema
-* Symbolic mathematics via SymPy
-* Embedded Matplotlib canvas integration
-* Dynamic UI state rendering
-* Secure evaluation sandboxing
+The database is **fully seeded on first run** and is safe to delete and regenerate at any time.
 
 ---
 
-## 📎 Quick Start
+## 🎯 User Progression System
 
-1. Install dependencies
-2. Run `python3 main.py`
-3. Add a user
-4. Explore modules
-5. Take quizzes
-6. View leaderboard
-7. Plot functions
+Points are awarded automatically on every interaction:
+
+| Action | Points |
+|--------|--------|
+| Shape calculation | +1 |
+| Algebra calculation | +2 |
+| Trigonometry calculation | +2 |
+| Each correct quiz answer | +5 |
+| Perfect quiz score bonus | +20 |
+| **Level up** | Every 50 points = +1 level |
+
+---
+
+## 📚 Module Reference
+
+### `shapes_module.py`
+Supports **15 shapes**: Circle, Square, Rectangle, Triangle, Ellipse, Pentagon, Hexagon, Octagon, Trapezoid, Rhombus, Parallelogram, Cylinder, Cone, Sphere, Cuboid. Input fields are generated dynamically from an `_INPUT_MAP` dictionary. The `_calculate()` function is decoupled from the UI for easy unit testing.
+
+### `algebra_module.py`
+Supports **10 concepts**: Linear Equation, Quadratic Equation, Laws of Exponents, Factorization, Arithmetic Progression, Geometric Progression, Logarithms, Binomial Theorem, System of Linear Equations, Inequalities. Uses SymPy for symbolic solving and shows the discriminant for quadratics.
+
+### `trig_module.py`
+Supports **10 functions**: sin, cos, tan, cot, sec, csc, Pythagorean Theorem, Law of Sines, Law of Cosines, Inverse Trig. Division-by-zero is guarded for all reciprocal functions. The input hint label updates dynamically per function.
+
+### `quiz_module.py`
+Draws up to 10 random questions per topic via `ORDER BY RANDOM()`. Buttons turn green (correct) or red (wrong) after answering, with the stored explanation shown immediately. On completion, `models.save_quiz_attempt()` persists the result, awards points, and increments the quiz counter.
+
+### `leaderboard_module.py`
+Queries the top 10 users from `models.get_leaderboard()`. The Treeview table supports click-to-sort on any column. The bar chart is drawn with `tk.Canvas` (no extra libraries needed). The current user's row and bar are highlighted in green.
+
+### `graph_module.py`
+Embeds a `matplotlib` Figure via `FigureCanvasTkAgg`. Expressions are evaluated with `numpy` in a sandboxed `eval()` namespace exposing only `np` and `x`. Values exceeding `1e6` are masked to `NaN` to prevent runaway y-axis scales. Imports defensively — missing matplotlib shows a prompt, not a crash.
 
 ---
 
-## 📜 License
+## 🐛 Bug Fixes (v1 → v2)
 
-This project is intended for educational and academic purposes.
+| Bug | Fix |
+|-----|-----|
+| Level never updated | `update_user_progress()` now recalculates level from total points on every call |
+| DB connections not closed | All queries use `with sqlite3.connect()` context managers |
+| No scroll on long sidebar lists | All sidebars use a `Canvas` + `Scrollbar` wrapper |
+| No user selected → crash | All modules guard with early returns and `messagebox` warnings |
+| `tan`/`cot`/`sec`/`csc` ZeroDivisionError | Near-zero denominator checks added for all reciprocal functions |
+| Triangle perimeter mismatch | UI now clarifies that perimeter requires all 3 side lengths |
 
 ---
+
+## 🔮 Roadmap
+
+- [ ] Timed quiz mode with a per-question countdown
+- [ ] Admin panel to add custom quiz questions through the UI
+- [ ] Export quiz results to CSV or PDF
+- [ ] Per-topic accuracy statistics over time
+- [ ] 3-D shape visualisation using matplotlib's toolkit
+- [ ] Dark mode toggle stored in user preferences
+
+---
+
+## 📄 License
+
+This project is open source. Feel free to use, modify and distribute it for educational purposes.
+
+---
+
+## 👤 Author
+
+**TraceHanami**
+Built with Python, Tkinter, SQLite, SymPy and Matplotlib.

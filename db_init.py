@@ -66,7 +66,8 @@ def create_and_seed_db(db_path: str = "mathmate.db") -> None:
         option_d      TEXT NOT NULL,
         correct       TEXT NOT NULL,          -- 'a' | 'b' | 'c' | 'd'
         difficulty    INTEGER DEFAULT 1,      -- 1=easy 2=medium 3=hard
-        explanation   TEXT                    -- shown after answering
+        explanation   TEXT,                   -- shown after answering
+        UNIQUE(topic, question_text)
     )""")
 
     # NEW: records every quiz session a user completes

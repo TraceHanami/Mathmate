@@ -1,0 +1,4 @@
+# MathMate Dependencies
+sympy>=1.12.0
+matplotlib>=3.8.0
+numpy>=1.26.0
